@@ -19,12 +19,12 @@ const VIEWPORTS = [
   { tag: 'desktop', width: 1440, height: 900 },
 ] as const
 
-/** Each host, and a collection that must be on screen once it renders for real. */
+/** Each host, a collection it owns, and a REAL record that must be on screen. */
 const HOSTS = [
   { site: 'erp', collection: 'erp-item', record: 'AX-100' },
   { site: 'crm', collection: 'crm-deal', record: 'Northwind — fleet telemetry' },
   { site: 'cms', collection: 'Page', record: 'platform' },
-  { site: 'help', collection: 'hd-ticket', record: null },
+  { site: 'help', collection: 'hd-ticket', record: 'Invoice 4471 shows the wrong tax rate' },
 ] as const
 
 const url = (site: string, path = '') => `http://${site}.localhost:${PORT}${path}`
@@ -69,7 +69,9 @@ for (const vp of VIEWPORTS) {
       // 2. one collection's records
       await page.goto(url(site, `/${encodeURIComponent(collection)}`), { waitUntil: 'domcontentloaded' })
       await expect(page.getByText(collection, { exact: false }).first()).toBeVisible({ timeout: 30_000 })
-      if (record) await expect(page.getByText(record, { exact: false }).first()).toBeVisible({ timeout: 30_000 })
+      // Waiting for a REAL row is what stops a screenshot from catching the
+      // loading state — a collection with Link fields resolves its pickers first.
+      await expect(page.getByText(record, { exact: false }).first()).toBeVisible({ timeout: 30_000 })
       if (vp.tag === 'mobile') await noHorizontalScroll(page)
       await page.screenshot({ path: `shots/${site}-records-${vp.tag}.png`, fullPage: false })
     })
