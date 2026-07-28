@@ -20,17 +20,19 @@ is a `module` tag over a registry of DocTypes, and a record is a document valida
 against one. An ERP Sales Order, a CRM Deal, a CMS Page and a Helpdesk Ticket are
 the same kind of thing with different metadata.
 
-So the renderer can be generic too. `@hanzo/ui/framework` is that renderer — one
-list, one detail, one form, driven by DocType metadata alone. This repo is what is
-left over once the engine and the renderer both exist:
+So the renderer can be generic too. `@hanzo/ui/framework` (8.0.25+) is that
+renderer — one list, one detail, one form, driven by DocType metadata alone, with
+a mobile layout that is a decision rather than a media query (cards on a phone,
+table on a desktop). This repo is what is left over once the engine and the
+renderer both exist:
 
 | file | what it decides |
 |---|---|
 | `src/sites.ts` | the first DNS label → which module. **The whole difference between the four.** |
 | `src/config.ts` | the registered domain → which brand, API origin and IAM issuer |
 | `src/session.tsx` | the IAM PKCE session (the console's path, not a second one) |
-| `src/framework.ts` | the shared client, bound to this host's API with the bearer |
-| `src/Shell.tsx` | `AppHeader` + the brand lockup |
+| `src/framework.ts` | the bearer transport — the one thing `@hanzo/ui/framework` leaves to the host |
+| `src/Shell.tsx` | `AppHeader`, the brand lockup, and the brand / product / collection breadcrumb |
 | `src/Site.tsx` | `[] \| [doctype] \| [doctype,name]` → list \| detail \| form |
 | `app/[[...path]]/page.tsx` | the one route |
 

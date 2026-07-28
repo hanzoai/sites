@@ -12,7 +12,7 @@
 import { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { Text, YStack } from '@hanzo/gui'
-import { CollectionsBrowser, DocTypeDetail, DocTypeRecords, Loader } from '@hanzo/ui/framework'
+import { CollectionsBrowser, DocTypeDetail, DocTypeRecords, Loading } from '@hanzo/ui/framework'
 import { EmptyState, PageHeader, PrimaryButton } from '@hanzo/ui/product'
 import { Boxes, LogIn } from '@hanzogui/lucide-icons-2'
 import type { BrandId } from '@hanzo/brand/registry'
@@ -43,7 +43,7 @@ export function Site({ site, brand, brandName, path }: { site: Site; brand: Bran
   const body = () => {
     // Every framework read needs a validated principal, so an anonymous visitor
     // gets the sign-in door, not an error card pretending the backend is down.
-    if (status === 'loading') return <Loader label={`Loading ${site.label}…`} />
+    if (status === 'loading') return <Loading label={`Loading ${site.label}…`} />
     if (status === 'anonymous') {
       return (
         <>
@@ -97,7 +97,14 @@ export function Site({ site, brand, brandName, path }: { site: Site; brand: Bran
   }
 
   return (
-    <Shell brand={brand} brandName={brandName} productLabel={site.label} onHome={() => router.push('/')}>
+    <Shell
+      brand={brand}
+      brandName={brandName}
+      productLabel={site.label}
+      crumb={doctype}
+      onCrumb={() => (doctype ? openCollection(doctype) : undefined)}
+      onHome={() => router.push('/')}
+    >
       {body()}
     </Shell>
   )

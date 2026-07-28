@@ -22,12 +22,22 @@ export function Shell({
   brand,
   brandName,
   productLabel,
+  crumb,
+  onCrumb,
   onHome,
   children,
 }: {
   brand: BrandId
   brandName: string
   productLabel: string
+  /**
+   * The collection being viewed, if any. It lives in the HEADER rather than in the
+   * records view because "where am I" is the shell's job — and on a phone the
+   * records view is a card list with no room for a redundant title, so without
+   * this the user cannot tell erp-item from erp-customer.
+   */
+  crumb?: string
+  onCrumb?: () => void
   onHome: () => void
   children: ReactNode
 }) {
@@ -47,9 +57,25 @@ export function Shell({
             <Text fontSize="$2" color="$color10">
               /
             </Text>
-            <Text fontSize="$3" fontWeight="700" numberOfLines={1}>
+            <Text
+              fontSize="$3"
+              fontWeight="700"
+              numberOfLines={1}
+              cursor={crumb ? 'pointer' : undefined}
+              onPress={crumb ? onHome : undefined}
+            >
               {productLabel}
             </Text>
+            {crumb ? (
+              <>
+                <Text fontSize="$2" color="$color10">
+                  /
+                </Text>
+                <Text fontSize="$3" color="$color11" numberOfLines={1} cursor="pointer" onPress={onCrumb}>
+                  {crumb}
+                </Text>
+              </>
+            ) : null}
           </XStack>
         }
       >
