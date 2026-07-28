@@ -1,0 +1,8 @@
+/* Geist is the canonical Hanzo face; @hanzo/ui/gui-config names it, this loads it. */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap');
+
+:root { color-scheme: dark; }
+html, body { margin: 0; padding: 0; background: #000; }
+body { font-family: 'Geist', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+/* Numbers, ids and codes read as data, not prose. */
+.hz-mono { font-family: 'Geist Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }

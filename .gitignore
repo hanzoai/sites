@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+.env.local
+dev/.data/
+# shots/ are the committed proof — see README
+test-results/
