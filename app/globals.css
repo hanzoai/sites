@@ -14,4 +14,4 @@ body { -webkit-font-smoothing: antialiased; }
 
 /* Numbers, ids and codes read as data, not prose — the mono face the token
    sheet resolved, plus the tabular figures that make columns of ids line up. */
-.hz-mono { font-family: var(--font-geist-mono), ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--font-geist-mono), ui-monospace, monospace; font-variant-numeric: tabular-nums; }
