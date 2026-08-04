@@ -20,7 +20,7 @@ is a `module` tag over a registry of DocTypes, and a record is a document valida
 against one. An ERP Sales Order, a CRM Deal, a CMS Page and a Helpdesk Ticket are
 the same kind of thing with different metadata.
 
-So the renderer can be generic too. `@hanzo/ui/framework` (8.0.25+) is that
+So the renderer can be generic too. `@hanzo/ui/framework` (8.0.39+) is that
 renderer — one list, one detail, one form, driven by DocType metadata alone, with
 a mobile layout that is a decision rather than a media query (cards on a phone,
 table on a desktop). This repo is what is left over once the engine and the
@@ -76,10 +76,35 @@ is loopback in every browser, so local development exercises the real host→sit
 rule rather than a query parameter.
 
 ```bash
-npm run typecheck     # tsc --noEmit
+npm run typecheck     # tsgo — TypeScript 7 native, ~2s where tsc takes ~14s
 npm test              # vitest — the host→site and host→brand rules
-npx playwright test   # drives all four hosts at 390x844 and 1440x900 → shots/
+npm run e2e           # e2e/ — tokens.spec needs only `next start`; shots.spec
+                      #   needs the local stack above and writes shots/
+npm run audit         # audit/ — the adversarial visual probes (overflow, contrast,
+                      #   tap targets); output lands in audit-shots/
 ```
+
+`next build` still runs its own `tsc` pass — that step is Next's, and it is the
+only one that sees the route types it generates mid-build, so it stays. `tsgo`
+owns the standalone typecheck, which is the one developers run in a loop.
+
+## Styling
+
+No Tailwind, no shadcn, no Radix — not removed here, never present. Styling is
+`@hanzo/gui` props plus two plain stylesheets, and the split between them is
+strict:
+
+- **`@hanzo/ui/theme.css`** — the fleet tokens (`--background`, `--border`,
+  `--radius`, the Geist family variables, the elevation ladder). Imported first in
+  `app/layout.tsx`. `@hanzo/ui`'s components name these; a host that skips it gets
+  transparent borders and surfaces while every request still returns 200.
+- **`app/globals.css`** — only what the token sheet does *not* say: fetching the
+  Geist face, the document reset, and `.hz-mono`. Nothing here may name a font
+  family or a colour literal.
+
+`<html>` carries both `dark` (what the token sheet keys on) and `t_dark` (what
+gui's runtime reads), server-side, so the first paint is already dark.
+`e2e/tokens.spec.ts` asserts the tokens actually resolve in a real browser.
 
 ## How it would be deployed
 

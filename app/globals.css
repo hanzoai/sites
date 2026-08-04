@@ -1,8 +1,17 @@
-/* Geist is the canonical Hanzo face; @hanzo/ui/gui-config names it, this loads it. */
+/**
+ * What this app adds to `@hanzo/ui/theme.css` — and nothing it already says.
+ *
+ * The token sheet declares the Geist families and binds html/body and the code
+ * elements to them; it does not FETCH the face. That is the one job left here,
+ * plus the document reset. Anything naming a family or a colour literal belongs
+ * in the token sheet, not in this file.
+ */
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap');
 
 :root { color-scheme: dark; }
-html, body { margin: 0; padding: 0; background: #000; }
-body { font-family: 'Geist', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
-/* Numbers, ids and codes read as data, not prose. */
-.hz-mono { font-family: 'Geist Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+html, body { margin: 0; padding: 0; background: var(--background); }
+body { -webkit-font-smoothing: antialiased; }
+
+/* Numbers, ids and codes read as data, not prose — the mono face the token
+   sheet resolved, plus the tabular figures that make columns of ids line up. */
+.hz-mono { font-family: var(--font-geist-mono), ui-monospace, monospace; font-variant-numeric: tabular-nums; }

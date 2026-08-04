@@ -1,5 +1,10 @@
 import type { ReactNode } from 'react'
 
+// The Hanzo tokens, first: `@hanzo/ui`'s components name `--background`,
+// `--border`, `--color2`, `--color12` and the Geist family variables, and this
+// is where they are defined. Without it those surfaces paint transparent. It
+// leads so this app's own rules below can still win.
+import '@hanzo/ui/theme.css'
 import './globals.css'
 import { Providers } from './providers'
 
@@ -12,10 +17,15 @@ export const metadata = {
  * The server render is byte-identical for every host on purpose: the site and
  * brand are resolved in the browser from `window.location`, so one build serves
  * erp/crm/cms/help across every brand with no per-host bundle.
+ *
+ * Two theme vocabularies, one state: `t_dark` is what gui's runtime reads, `dark`
+ * is what the token sheet keys its dark set on. Both are set on the server so the
+ * first paint is already dark — NextThemeProvider only reaches the DOM after
+ * hydration, and without `dark` up front the tokens resolve light for that frame.
  */
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="t_dark" suppressHydrationWarning>
+    <html lang="en" className="dark t_dark" suppressHydrationWarning>
       <body>
         <Providers>{children}</Providers>
       </body>

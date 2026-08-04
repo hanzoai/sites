@@ -11,8 +11,7 @@
  * also why the server render is identical for all four hosts and one build ships
  * everywhere.
  */
-import { useEffect, useState } from 'react'
-import { use } from 'react'
+import { use, useEffect, useState } from 'react'
 
 import { currentConfig } from '../../src/config'
 import { Site, SiteChooser } from '../../src/Site'
