@@ -99,7 +99,7 @@ strict:
   `app/layout.tsx`. `@hanzo/ui`'s components name these; a host that skips it gets
   transparent borders and surfaces while every request still returns 200.
 - **`app/globals.css`** — only what the token sheet does *not* say: fetching the
-  Geist face, the document reset, and `.hz-mono`. Nothing here may name a font
+  Geist face, the document reset, and `.mono`. Nothing here may name a font
   family or a colour literal.
 
 `<html>` carries both `dark` (what the token sheet keys on) and `t_dark` (what
