@@ -1,0 +1,18 @@
+import { test, expect } from '@playwright/test'
+test('tablet 768 button heights (a TOUCH device above the phone breakpoint)', async ({ page }) => {
+  await page.setViewportSize({ width: 768, height: 1024 })
+  await page.goto('http://help.localhost:3100/', { waitUntil: 'domcontentloaded' })
+  const b = page.getByText('Sign in', { exact: true }).first()
+  await b.waitFor({ state: 'visible', timeout: 60_000 }); await b.click()
+  await page.waitForURL(/^http:\/\/help\.localhost:3100\/(\?|$)/, { timeout: 60_000 })
+  await expect(page.getByText('z', { exact: true }).first()).toBeVisible({ timeout: 60_000 })
+  await page.goto('http://help.localhost:3100/hd-ticket/hd-tkt-00001', { waitUntil: 'domcontentloaded' })
+  await expect(page.getByText('Edit', { exact: true }).first()).toBeVisible({ timeout: 30_000 })
+  await page.waitForTimeout(800)
+  console.log('DETAIL', JSON.stringify(await page.evaluate(() => Array.from(document.querySelectorAll('button,[role="button"]')).map(e=>{const r=e.getBoundingClientRect();return {t:(e.textContent||'').trim().slice(0,18),w:Math.round(r.width),h:Math.round(r.height)}}).filter(x=>x.w>0))))
+  await page.getByText('Edit', { exact: true }).first().click()
+  await expect(page.getByText('Save', { exact: true }).first()).toBeVisible({ timeout: 30_000 })
+  await page.waitForTimeout(600)
+  console.log('FORM  ', JSON.stringify(await page.evaluate(() => Array.from(document.querySelectorAll('button,[role="button"],input,select,textarea')).map(e=>{const r=e.getBoundingClientRect();return {t:(e.textContent||(e as any).placeholder||'').trim().slice(0,18)||e.tagName.toLowerCase(),w:Math.round(r.width),h:Math.round(r.height)}}).filter(x=>x.w>0&&x.h<44))))
+  await page.screenshot({ path: 'audit-shots/edge-tablet-form.png', fullPage: true })
+})
