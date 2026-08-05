@@ -1,0 +1,65 @@
+# Hanzo CI/CD — sites. All real config lives here; .hanzo/workflows/cicd.yml is
+# seven lines of triggers importing hanzoai/ci.
+#
+# This repo had NO pipeline at all — not on github.com, not on the forge — so
+# nothing had ever run against it. Four production hosts (erp/crm/cms/help, on
+# every brand) shipped from a branch no gate had ever read.
+#
+# No `images:` — there is no Dockerfile here and nothing else builds one.
+# No `site:` — `next build` is a SERVER build (next.config.mjs sets no
+#   `output: 'export'`), so there is no static export to mirror to hanzoai/s3,
+#   and no /v1/sites project claims these four hosts. Declaring the lane anyway
+#   would fail closed at the first push, correctly and pointlessly.
+# So this is a test-only caller, which the reusable handles: no images, no
+# build step, just the gates below.
+
+test:
+  - name: install
+    # `npm ci`, not `npm install`: it installs the lockfile or it fails, so what
+    # CI proves is what a consumer gets. It is also the gate that would have
+    # caught this tree in the state it was in — package.json asked for
+    # @hanzo/gui ^8.0.2 while package-lock.json still pinned 8.0.1, which is a
+    # hard ETARGET, not a warning.
+    run: |
+      set -e
+      npm ci
+
+  - name: typecheck
+    # tsgo (@typescript/native-preview), the same compiler the repo's own
+    # `typecheck` script names. `next build` does NOT typecheck the specs —
+    # audit/ and e2e/ are outside its graph — so without this the Playwright
+    # suites can stop compiling and no build would say so.
+    run: |
+      set -e
+      npm run typecheck
+
+  - name: unit
+    # src/sites.test.ts — the host→site and host→brand derivations. These are
+    # the whole difference between the four products and between the brands, and
+    # they are pure functions, so a table of hosts is the honest test:
+    # erp.lux.network must reach api.lux.network and lux.id, never Hanzo's, and
+    # an apex host must resolve to NOTHING rather than quietly defaulting.
+    run: |
+      set -e
+      npm run test
+
+  - name: build
+    # THE ONE THAT MATTERS. `npm run build` is `next build` FOLLOWED BY the
+    # repo's `postbuild` hook, which is `gui-css-check` — npm runs post* hooks
+    # automatically, so the CSS gate cannot be skipped without deleting it from
+    # package.json.
+    #
+    # What it gates: a build is green when the code COMPILES, and nothing in a
+    # compiler knows whether the stylesheet a page links actually contains the
+    # classes that page uses. gui-css-check reads the built output and compares
+    # the classes in the markup against the rules in every sheet those documents
+    # deliver; anything used and never defined exits 1. That failure has shipped
+    # three times in this fleet — hanzo.app served 18 KB of CSS holding none of
+    # its ~240 atomic classes, and it type-checked, built, and rendered blank.
+    #
+    # It is invoked through `npm run build` rather than as a fifth gate calling
+    # `gui-css-check` directly, so there is ONE definition of "build this repo"
+    # and a developer running it locally gets exactly what CI runs.
+    run: |
+      set -e
+      npm run build
