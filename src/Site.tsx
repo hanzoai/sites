@@ -127,7 +127,7 @@ export function SiteChooser({ brand, brandName }: { brand: BrandId; brandName: s
             <Text fontSize="$2" color="$color10">
               {SITES[id].tagline}
             </Text>
-            <Text fontSize="$1" color="$color9" className="hz-mono">
+            <Text fontSize="$1" color="$color9" className="mono">
               {id}.&lt;brand&gt; · module {SITES[id].module}
             </Text>
           </YStack>
