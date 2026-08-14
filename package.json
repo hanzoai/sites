@@ -18,7 +18,7 @@
     "@hanzo/data": "^1.2.2",
     "@hanzo/gui": "^8.1.0",
     "@hanzo/iam": "^0.21.6",
-    "@hanzo/ui": "^8.0.60",
+    "@hanzo/ui": "^8.0.76",
     "@hanzogui/config": "^8.0.1",
     "@hanzogui/lucide-icons-2": "^8.0.1",
     "@hanzogui/next-theme": "^8.0.0",
@@ -36,5 +36,8 @@
     "@types/react-dom": "^19.0.0",
     "typescript": "^5.7.0",
     "vitest": "^3.2.4"
+  },
+  "overrides": {
+    "@hanzo/ui": "$@hanzo/ui"
   }
 }
