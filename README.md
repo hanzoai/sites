@@ -110,8 +110,8 @@ gui's runtime reads), server-side, so the first paint is already dark.
 
 Nothing here is deployed by this repo. The shape it takes:
 
-1. **Build** — `hanzo.yml` at the root, `.github/workflows/cicd.yml` importing
-   `hanzoai/ci`, image to `registry.hanzo.ai/hanzo/sites:vX.Y.Z`. No local builds.
+1. **Build** — `hanzo.yml` at the root, `.hanzo/workflows/cicd.yml` importing
+   `hanzoai/ci`, image to `oci.hanzo.ai/hanzo/sites:vX.Y.Z`. No local builds.
 2. **Run** — one operator `Service` CR, one Deployment. **One workload for all four
    hosts**, because the host is read at runtime; four ingress hosts point at it.
    Scaling four products is scaling one thing.
