@@ -95,12 +95,15 @@ No Tailwind, no shadcn, no Radix — not removed here, never present. Styling is
 strict:
 
 - **`@hanzo/ui/theme.css`** — the fleet tokens (`--background`, `--border`,
-  `--radius`, the Geist family variables, the elevation ladder). Imported first in
+  `--radius`, the family variables, the elevation ladder). Imported first in
   `app/layout.tsx`. `@hanzo/ui`'s components name these; a host that skips it gets
   transparent borders and surfaces while every request still returns 200.
-- **`app/globals.css`** — only what the token sheet does *not* say: fetching the
-  Geist face, the document reset, and `.mono`. Nothing here may name a font
-  family or a colour literal.
+- **`@hanzo/design/tokens/fonts.css`** — Zen: the `@font-face` pair and the
+  `--font-sans` / `--font-mono` tokens that resolve to them, with the woff2
+  shipped alongside. Imported second, so it outranks the face `theme.css` still
+  names, and no typeface is fetched from a third party.
+- **`app/globals.css`** — only what the token sheets do *not* say: the document
+  reset and `.mono`. Nothing here may name a font family or a colour literal.
 
 `<html>` carries both `dark` (what the token sheet keys on) and `t_dark` (what
 gui's runtime reads), server-side, so the first paint is already dark.

@@ -34,7 +34,7 @@ test('site chooser renders on the 8.x stack with tokens resolved', async ({ page
       background: cs.getPropertyValue('--background').trim(),
       border: cs.getPropertyValue('--border').trim(),
       color12: cs.getPropertyValue('--color12').trim(),
-      mono: cs.getPropertyValue('--font-geist-mono').trim(),
+      mono: cs.getPropertyValue('--font-mono').trim(),
       bodyBg: getComputedStyle(document.body).backgroundColor,
       bodyFont: getComputedStyle(document.body).fontFamily,
       mark: document.querySelectorAll('svg').length,
@@ -47,14 +47,14 @@ test('site chooser renders on the 8.x stack with tokens resolved', async ({ page
   expect(probe.classes).toContain('dark')
   expect(probe.background).not.toBe('')
   expect(probe.border).not.toBe('')
-  expect(probe.mono).toContain('Geist Mono')
+  expect(probe.mono).toContain('Zen Mono')
   // `--border` has no other source than the token sheet — gui's runtime injection
   // supplies the colour SCALE (`--color12`, and `--background` in hsla), the sheet
   // supplies the semantic tokens. Its dark value is what proves both landed.
   expect(probe.border).toContain('oklch')
   // Dark, whichever sheet won the name: 8% lightness, not white.
   expect(probe.bodyBg).toBe('rgb(20, 20, 20)')
-  expect(probe.bodyFont).toContain('Geist')
+  expect(probe.bodyFont).toContain('Zen')
   expect(probe.mark).toBeGreaterThan(0)
   expect(probe.overflows).toBe(false)
 

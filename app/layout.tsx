@@ -1,10 +1,15 @@
 import type { ReactNode } from 'react'
 
 // The Hanzo tokens, first: `@hanzo/ui`'s components name `--background`,
-// `--border`, `--color2`, `--color12` and the Geist family variables, and this
-// is where they are defined. Without it those surfaces paint transparent. It
-// leads so this app's own rules below can still win.
+// `--border`, `--color2`, `--color12` and the family variables, and this is
+// where they are defined. Without it those surfaces paint transparent. It leads
+// so this app's own rules below can still win.
 import '@hanzo/ui/theme.css'
+// Zen, second, because it must outrank the face the sheet above still names.
+// This one file is the whole typeface: the @font-face pair and the two role
+// tokens that resolve to them, with the woff2 shipped beside it — so nothing is
+// fetched from a host we do not control.
+import '@hanzo/design/tokens/fonts.css'
 import './globals.css'
 import { Providers } from './providers'
 

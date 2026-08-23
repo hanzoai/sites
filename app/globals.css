@@ -1,17 +1,22 @@
 /**
- * What this app adds to `@hanzo/ui/theme.css` — and nothing it already says.
+ * What this app adds to the token sheets — and nothing they already say.
  *
- * The token sheet declares the Geist families and binds html/body and the code
- * elements to them; it does not FETCH the face. That is the one job left here,
- * plus the document reset. Anything naming a family or a colour literal belongs
- * in the token sheet, not in this file.
+ * `@hanzo/design/tokens/fonts.css` declares the Zen faces and the role tokens,
+ * and this file points the document at those roles. Fetching a face is no longer
+ * a job here. What is left is that binding, the document reset, and `.mono`.
+ * Anything naming a family or a colour literal belongs in a token sheet.
  */
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap');
 
 :root { color-scheme: dark; }
-html, body { margin: 0; padding: 0; background: var(--background); }
+
+/* `@hanzo/ui/theme.css` still routes the document through its own geist-named
+   aliases. Name the ROLE instead, which resolves to Zen; its rules are
+   `:where(...)` and carry no specificity, so a bare selector is enough. */
+html, body { margin: 0; padding: 0; background: var(--background); font-family: var(--font-sans); }
+code, kbd, samp, pre { font-family: var(--font-mono); }
+
 body { -webkit-font-smoothing: antialiased; }
 
 /* Numbers, ids and codes read as data, not prose — the mono face the token
    sheet resolved, plus the tabular figures that make columns of ids line up. */
-.mono { font-family: var(--font-geist-mono), ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--font-mono), ui-monospace, monospace; font-variant-numeric: tabular-nums; }
