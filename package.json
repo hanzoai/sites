@@ -14,12 +14,12 @@
     "audit": "playwright test -c audit/audit.config.ts"
   },
   "dependencies": {
-    "@hanzo/brand": "^1.4.5",
-    "@hanzo/data": "^1.2.2",
-    "@hanzo/design": "^0.5.20",
-    "@hanzo/gui": "^8.1.0",
-    "@hanzo/iam": "^0.21.6",
-    "@hanzo/ui": "^8.0.76",
+    "@hanzo/brand": "1.4.8",
+    "@hanzo/data": "1.2.4",
+    "@hanzo/design": "0.5.24",
+    "@hanzo/gui": "8.3.0",
+    "@hanzo/iam": "0.21.17",
+    "@hanzo/ui": "8.25.0",
     "@hanzogui/config": "^8.0.1",
     "@hanzogui/lucide-icons-2": "^8.0.1",
     "@hanzogui/next-theme": "^8.0.0",
@@ -39,5 +39,6 @@
   },
   "overrides": {
     "@hanzo/ui": "$@hanzo/ui"
-  }
+  },
+  "packageManager": "pnpm@11.24.0"
 }

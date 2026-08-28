@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: set this to true or false
+  sharp: set this to true or false
+minimumReleaseAgeExclude:
+  - '@hanzo/design@0.5.24'
+  - '@hanzo/ui@8.25.0'
