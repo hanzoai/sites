@@ -14,28 +14,28 @@
     "audit": "playwright test -c audit/audit.config.ts"
   },
   "dependencies": {
-    "@hanzo/brand": "1.4.8",
-    "@hanzo/data": "1.2.4",
-    "@hanzo/design": "0.5.24",
-    "@hanzo/gui": "8.3.0",
-    "@hanzo/iam": "0.21.17",
-    "@hanzo/ui": "8.25.0",
-    "@hanzogui/config": "^8.0.1",
-    "@hanzogui/lucide-icons-2": "^8.0.1",
-    "@hanzogui/next-theme": "^8.0.0",
-    "next": "15.5.19",
-    "react": "19.2.7",
-    "react-dom": "19.2.7",
-    "react-native-svg": "15.15.5",
-    "react-native-web": "0.21.2"
+    "@hanzo/brand": "catalog:",
+    "@hanzo/data": "catalog:",
+    "@hanzo/design": "catalog:",
+    "@hanzo/gui": "catalog:",
+    "@hanzo/iam": "catalog:",
+    "@hanzo/ui": "catalog:",
+    "@hanzogui/config": "catalog:",
+    "@hanzogui/lucide-icons-2": "catalog:",
+    "@hanzogui/next-theme": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-native-svg": "catalog:",
+    "react-native-web": "catalog:"
   },
   "devDependencies": {
-    "@playwright/test": "^1.50.0",
-    "@types/node": "^22.10.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "typescript": "^7.0.2",
-    "vitest": "^3.2.4"
+    "@playwright/test": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "overrides": {
     "@hanzo/ui": "$@hanzo/ui"
